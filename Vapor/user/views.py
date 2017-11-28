@@ -55,28 +55,27 @@ def register_user(request):
             email = form.cleaned_data['email']
             # user_type = form.cleaned_data['user_type']
 
-            random_string = str(random.random()).encode('utf8')
-            salt = hashlib.sha1(random_string).hexdigest()[:5]
-            salted = (salt + email).encode('utf8')
-            activation_key = hashlib.sha1(salted).hexdigest()
-            key_expires = timezone.now() + datetime.timedelta(2)
+            # random_string = str(random.random()).encode('utf8')
+            # salt = hashlib.sha1(random_string).hexdigest()[:5]
+            # salted = (salt + email).encode('utf8')
+            # activation_key = hashlib.sha1(salted).hexdigest()
+            # key_expires = timezone.now() + datetime.timedelta(2)
 
             customer = User.objects.get(username=username)
 
-            customer_profile = Customer(id=customer.id, customer=customer, activation_key=activation_key,
-                   key_expires=key_expires)
+            customer_profile = Customer(id=customer.id, customer=customer)
             customer_profile.save()
 
-            email_subject = 'Vapor Registration Confirmation'
+            # email_subject = 'Vapor Registration Confirmation'
 
-            email_message = "Thank you for signing up with Vapor! To activate your account, please visit: \
-                http://127.0.0.1:8000/users/login/"
+            # email_message = "Thank you for signing up with Vapor! To activate your account, please visit: \
+            #     http://127.0.0.1:8000/users/login/"
 
-            send_mail(email_subject, email_message, 'rt4hc@gmail.com', [email], fail_silently=False)
+            # send_mail(email_subject, email_message, 'rt4hc@gmail.com', [email], fail_silently=False)
 
             customer = authenticate(username=username, password=raw_password)
             login(request, customer)
-            return redirect('/newuserkeylanding/')
+            return redirect('/')
     else:
         form = RegistrationForm()
     return render(request, 'user/register.html', {'form': form})
@@ -85,10 +84,10 @@ def register_confirm(request, activation_key):
     if request.user.is_authenticated():
         HttpResponseRedirect('http://127.0.0.1:8000/')
 
-    customer_profile = get_object_or_404(Customer, activation_key=activation_key)
+    customer_profile = get_object_or_404(Customer)
 
-    if customer_profile.key_expires < timezone.now():
-        return HttpResponse("Activation key not working! Please register a new account.")
+    # if customer_profile.key_expires < timezone.now():
+    #     return HttpResponse("Activation key not working! Please register a new account.")
 
     customer = customer_profile.customer
     customer.is_active = True
