@@ -17,7 +17,7 @@ class Customer(models.Model):
             cc_security_code varchar(10),
             PRIMARY KEY(customer_id)
             )'''
-    id = models.BigIntegerField(primary_key=True)
+    
     customer = models.OneToOneField(User)
     activation_key = models.CharField(max_length = 200)
     customer_name = models.TextField(max_length = 400) # only one document can have document=true field
@@ -54,7 +54,7 @@ class Merchant(models.Model):
             
             PRIMARY KEY(merchant_id)
             )'''
-    id = models.BigIntegerField(primary_key=True)
+    
     merchant_name = models.CharField(max_length = 400) # only one document can have document=true field
     street_address = models.CharField(max_length=200)
     city = models.CharField(max_length = 100, default="")
@@ -85,7 +85,7 @@ class Developer(models.Model):
 			PRIMARY KEY(developer_id)
 			)'''
 
-    id = models.BigIntegerField(primary_key=True)
+   
     developer_name = models.CharField(max_length = 400) # only one document can have document=true field
     street_address = models.CharField(max_length=200)
     city = models.CharField(max_length = 100, default="")
@@ -119,7 +119,7 @@ class Product(models.Model):
 			FOREIGN KEY(developer_id) references developers(developer_id)
 			)'''
 
-    id = models.BigIntegerField(primary_key=True)
+    
     product_name = models.CharField(max_length = 400) # only one document can have document=true field
     product_description = models.CharField(max_length=200)
     price = models.CharField(max_length = 100, default="")
@@ -148,7 +148,6 @@ class ShoppingCart(models.Model):
 			FOREIGN KEY(product_id) references products(product_id)
 			)'''
 
-    id = models.BigIntegerField(primary_key=True)
     product_id = models.ForeignKey(Product, on_delete = models.CASCADE) # only one document can have document=true field
     customer_id = models.ForeignKey(Customer, on_delete = models.CASCADE)
 
@@ -179,7 +178,6 @@ class Transactions(models.Model):
 			FOREIGN KEY(product_id) references products(product_id)
 			)'''
 
-    id = models.BigIntegerField(primary_key=True)
     date_time = models.DateTimeField(auto_now_add = True)
     amount_paid = models.DecimalField(decimal_places = 2, max_digits=50)
     payment_method = models.CharField(max_length = 40)
@@ -211,7 +209,7 @@ class Reviews(models.Model):
 			FOREIGN KEY(product_id) references products(product_id)
 			)'''
 
-    id = models.BigIntegerField(primary_key=True)
+    
     review_content = models.TextField(max_length = 500)
     review_date_time = models.DateTimeField(auto_now_add = True)
     reivew_rating = models.DecimalField(decimal_places=1, max_digits=3, max_length = 40)
@@ -239,7 +237,7 @@ class DeveloperProducesProduct(models.Model):
 			FOREIGN KEY(developer_id) references developers(developer_id)
 			)'''
 
-    id = models.BigIntegerField(primary_key=True)
+    
     developer_id = models.ForeignKey(Developer, on_delete = models.CASCADE)
     product_id = models.ForeignKey(Product, on_delete = models.CASCADE) # only one document can have document=true field
    
@@ -264,7 +262,7 @@ class SupportTicket(models.Model):
 			FOREIGN KEY(customer_id) references customers(customer_id)
 			)'''
 
-    id = models.BigIntegerField(primary_key=True)
+    
     ticket_content = models.TextField(max_length = 500)
     ticket_date_time = models.DateTimeField(auto_now_add = True) # only one document can have document=true field
     customer_id = models.ForeignKey(Customer, on_delete=models.CASCADE)

@@ -10,6 +10,12 @@
 
 {% for item in results %}
 	{{ item.product_name }}
+	<form method='post'>
+		{% csrf_token %}
+		<input type="submit" value="Add to Cart" name="add_cart_{{ item.id }}" />
+	</form>
 {% endfor %}
+
+<a href="{% url 'search:searchview' %}"> back </a>
 
 {% endblock %}

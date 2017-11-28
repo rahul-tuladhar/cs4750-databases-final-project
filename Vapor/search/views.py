@@ -53,4 +53,6 @@ def search_view(request):
 def results_view(request):
 	data = request.session['search_results']
 	context = {'results': data}
+
+
 	return render(request, 'search/resultsview.html', context)

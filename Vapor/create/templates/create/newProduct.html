@@ -1,0 +1,15 @@
+<h1> new product </h1>
+
+<form method="post">
+	{% csrf_token %}
+
+	{{ form.product_name.label }} {{ form.product_name }}
+	<br />
+	{{ form.product_desc.label }} {{ form.product_desc }}
+	<br />
+	{{ form.price.label }} {{ form.price }}
+	<br />
+
+	<input type="submit" value="Submit" />
+	
+</form>
