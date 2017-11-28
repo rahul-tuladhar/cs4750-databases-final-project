@@ -2,7 +2,7 @@ from django.db import models
 from django import forms
 from django.contrib.auth.models import User, Group
 
-class Customers(models.Model):
+class Customer(models.Model):
     # Attributes of the report model
     '''CREATE TABLE customers (
             customer_id int AUTO_INCREMENT,
@@ -11,13 +11,15 @@ class Customers(models.Model):
             city varchar(50),
             state varchar(20),
             zip int,
-            phone_number varchar(20),
+            phone_number varMchar(20),
             cc_number int,
             cc_exp_date datetime,
             cc_security_code varchar(10),
             PRIMARY KEY(customer_id)
             )'''
     id = models.BigIntegerField(primary_key=True)
+    customer = models.OneToOneField(User)
+    activation_key = models.CharField(max_length = 200)
     customer_name = models.TextField(max_length = 400) # only one document can have document=true field
     street_address = models.DateTimeField(auto_now_add=True)
     city = models.CharField(max_length = 100, default="")
@@ -37,11 +39,11 @@ class Customers(models.Model):
         """
         return (id)
 
-class Merchants(models.Model):
+class Merchant(models.Model):
     # Attributes of the report model
     '''CREATE TABLE merchants (
             merchant_id int AUTO_INCREMENT,
-            merchant_name varchar(100),
+            merchant_name vaMrchar(100),
             street_address varchar(100),
             city varchar(50),
             state varchar(20),
@@ -68,7 +70,7 @@ class Merchants(models.Model):
         """
         return (id)
 
-class Developers(models.Model):
+class Developer(models.Model):
     # Attributes of the report model
     '''CREATE TABLE developers (
 			developer_id int AUTO_INCREMENT,
@@ -99,7 +101,7 @@ class Developers(models.Model):
         """
         return (id)
 
-class Products(models.Model):
+class Product(models.Model):
     '''CREATE TABLE products (
 			product_id int AUTO_INCREMENT,
 			product_name varchar(100),
@@ -122,8 +124,8 @@ class Products(models.Model):
     genre = models.CharField(max_length = 100, null = True)
     release_date = models.DateTimeField(max_length = 200)
     stock = models.BigIntegerField()
-    merchant_id = models.ForeignKey(Merchants, on_delete = models.CASCADE)
-    developer_id = models.ForeignKey(Developers, on_delete = models.CASCADE)
+    merchant_id = models.ForeignKey(Merchant, on_delete = models.CASCADE)
+    developer_id = models.ForeignKey(Developer, on_delete = models.CASCADE)
 
     def __str__(self):
         # Should probably have each object be able to return a string of itself
@@ -145,8 +147,8 @@ class ShoppingCart(models.Model):
 			)'''
 
     id = models.BigIntegerField(primary_key=True)
-    product_id = models.ForeignKey(Products, on_delete = models.CASCADE) # only one document can have document=true field
-    customer_id = models.ForeignKey(Customers, on_delete = models.CASCADE)
+    product_id = models.ForeignKey(Product, on_delete = models.CASCADE) # only one document can have document=true field
+    customer_id = models.ForeignKey(Customer, on_delete = models.CASCADE)
 
     def __str__(self):
         # Should probably have each object be able to return a string of itself
@@ -179,9 +181,9 @@ class Transactions(models.Model):
     date_time = models.DateTimeField(auto_now_add = True)
     amount_paid = models.DecimalField(decimal_places = 2, max_digits=50)
     payment_method = models.CharField(max_length = 40)
-    customer_id = models.ForeignKey(Customers, on_delete = models.CASCADE)
-    merchant_id = models.ForeignKey(Merchants, on_delete = models.CASCADE)
-    product_id = models.ForeignKey(Products, on_delete = models.CASCADE) # only one document can have document=true field
+    customer_id = models.ForeignKey(Customer, on_delete = models.CASCADE)
+    merchant_id = models.ForeignKey(Merchant, on_delete = models.CASCADE)
+    product_id = models.ForeignKey(Product, on_delete = models.CASCADE) # only one document can have document=true field
    
 
     def __str__(self):
@@ -211,9 +213,9 @@ class Reviews(models.Model):
     review_content = models.TextField(max_length = 500)
     review_date_time = models.DateTimeField(auto_now_add = True)
     reivew_rating = models.DecimalField(decimal_places=1, max_digits=3, max_length = 40)
-    customer_id = models.ForeignKey(Customers, on_delete = models.CASCADE)
-    merchant_id = models.ForeignKey(Merchants, on_delete = models.CASCADE)
-    product_id = models.ForeignKey(Products, on_delete = models.CASCADE) # only one document can have document=true field
+    customer_id = models.ForeignKey(Customer, on_delete = models.CASCADE)
+    merchant_id = models.ForeignKey(Merchant, on_delete = models.CASCADE)
+    product_id = models.ForeignKey(Product, on_delete = models.CASCADE) # only one document can have document=true field
    
 
     def __str__(self):
@@ -226,7 +228,7 @@ class Reviews(models.Model):
         """
         return ("reviews_id/"+id)
 
-class DevelopersProducesProducts(models.Model):
+class DeveloperProducesProduct(models.Model):
     ''''CREATE TABLE developer_produces_product (
 			product_id int,
 			developer_id int,
@@ -236,8 +238,8 @@ class DevelopersProducesProducts(models.Model):
 			)'''
 
     id = models.BigIntegerField(primary_key=True)
-    developer_id = models.ForeignKey(Developers, on_delete = models.CASCADE)
-    product_id = models.ForeignKey(Products, on_delete = models.CASCADE) # only one document can have document=true field
+    developer_id = models.ForeignKey(Developer, on_delete = models.CASCADE)
+    product_id = models.ForeignKey(Product, on_delete = models.CASCADE) # only one document can have document=true field
    
 
     def __str__(self):
@@ -250,7 +252,7 @@ class DevelopersProducesProducts(models.Model):
         """
         return ("dpp/"+id)
 
-class SupportTickets(models.Model):
+class SupportTicket(models.Model):
     '''CREATE TABLE support_tickets (
 			ticket_id int AUTO_INCREMENT,
 			ticket_content varchar(1000),
@@ -263,7 +265,7 @@ class SupportTickets(models.Model):
     id = models.BigIntegerField(primary_key=True)
     ticket_content = models.TextField(max_length = 500)
     ticket_date_time = models.DateTimeField(auto_now_add = True) # only one document can have document=true field
-    customer_id = models.ForeignKey(Customers, on_delete=models.CASCADE)
+    customer_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
 
     def __str__(self):
         # Should probably have each object be able to return a string of itself

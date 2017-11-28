@@ -8,25 +8,38 @@ from django.views.generic import View, ListView, CreateView, UpdateView, DeleteV
 from django.contrib.auth.models import User, Group, Permission
 from django.template.context_processors import csrf
 from django.template import RequestContext
+from django.utils import timezone
+from django.db.models import Q
+from django.utils import timezone
+from django.db.models import Max
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, resolve_url
 from django.contrib.contenttypes.models import ContentType
 from django.core.mail import send_mail
+
+import json
+import datetime
+import random
+import hashlib
+
+from data.models import Customer
+from .forms import RegistrationForm
+from .forms import UserForm
+
+
 # Create your views here.
-from data.models import Customers
+from data.models import Customer
+from .forms import RegistrationForm
+
+
 
 def user_login(request):
     if request.method == 'POST':
         user = authenticate(username=request.POST.get('username'), password=request.POST.get('password'))
         if user is not None:
-            up = UserProfile.objects.get(id = user.id)
-            if up.suspended:
-                return HttpResponse("Your account has been suspended. Contact a site manager for more information.")
-            else:
-                login(request, user)
-                return HttpResponseRedirect('/')
+            up = Customer.objects.get(id = user.id)
         else:
              return HttpResponse("Invalid login information. (If you believe you have entered the correct login information, contact the Site Manager.)")
     else:
@@ -40,7 +53,7 @@ def register_user(request):
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             email = form.cleaned_data['email']
-            user_type = form.cleaned_data['user_type']
+            # user_type = form.cleaned_data['user_type']
 
             random_string = str(random.random()).encode('utf8')
             salt = hashlib.sha1(random_string).hexdigest()[:5]
@@ -48,10 +61,10 @@ def register_user(request):
             activation_key = hashlib.sha1(salted).hexdigest()
             key_expires = timezone.now() + datetime.timedelta(2)
 
-            user = User.objects.get(username=username)
+            customer = User.objects.get(username=username)
 
-            user_profile = UserProfile(id=user.id, user=user, activation_key=activation_key,
-                   key_expires=key_expires, user_type=user_type)
+            customer_profile = Customer(id=customer.id, customer=customer, activation_key=activation_key,
+                   key_expires=key_expires)
             user_profile.save()
 
             email_subject = 'Vapor Registration Confirmation'
@@ -66,7 +79,7 @@ def register_user(request):
             return redirect('/newuserkeylanding/')
     else:
         form = RegistrationForm()
-    return render(request, 'users/register.html', {'form': form})
+    return render(request, 'user/register.html', {'form': form})
 
 def register_confirm(request, activation_key):
     if request.user.is_authenticated():

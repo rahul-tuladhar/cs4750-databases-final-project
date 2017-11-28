@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from data.models import Products, Merchants, Developers
+from data.models import Product, Merchant, Developer
 
 # Create your views here.
 
@@ -15,7 +15,7 @@ def search_view(request):
 			merch_search = request.POST.get('merch_search')
 			dev_search = request.POST.get('dev_search')
 
-		qset = Products.objects.all()
+		qset = Product.objects.all()
 		if name_search:
 			qset = qset.filter(product_name=name_search)
 		if price_mod and price_search:
@@ -29,13 +29,13 @@ def search_view(request):
 			qset = qset.filter(genre=genre_search)
 		if merch_search:
 			try:
-				merch = Merchants.objects.get(merchant_name=merch_search)
+				merch = Merchant.objects.get(merchant_name=merch_search)
 				qset = qset.filter(merchant_id=merch)
 			except:
 				print("merchant not found")
 		if dev_search:
 			try:
-				dev = Developers.objects.get(developer_name=dev_search)
+				dev = Developer.objects.get(developer_name=dev_search)
 				qset = qset.filter(developer_id=dev)
 			except:
 				print("developer not found")

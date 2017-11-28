@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from data.models import Customers, ShoppingCart, Products
+from data.models import Customer, ShoppingCart, Product
 
 
 # Create your views here.
@@ -9,7 +9,7 @@ def cart_view(request, user_id):
 
 	# Get the customer for this cart
 	try: 
-		customer = Customers.objects.get(id=user_id)
+		customer = Customer.objects.get(id=user_id)
 	except:
 		customer = None
 
