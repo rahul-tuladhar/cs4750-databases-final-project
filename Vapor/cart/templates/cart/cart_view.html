@@ -6,8 +6,14 @@
 {% include "home/navbar.html" %}
 
 <h1> default cart page </h1>
+
+{% if name %}
 <p> hello {{ name }} </p>
 
 {% for product in items %}
 <p> {{ product.product_name }} </p>
 {% endfor %}
+
+{% else %}
+<p> Invalid cart page </p>
+{% endif %}
