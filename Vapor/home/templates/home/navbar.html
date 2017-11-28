@@ -8,13 +8,7 @@
     <ul class="navbar-nav">
       {% if is_logged_in %}
         <li class="nav-item">
-          <a class="nav-link {% if nav_context == 'Reports' %}active{% endif %}" href="/report/create_report/">Reports</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link {% if nav_context == 'Search' %}active{% endif %}" href="/search/">Search</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {% if nav_context == 'Messages' %}active{% endif %}" href="/messages/">Messages{% if unread_messages > 0 %}({{unread_messages}}){% endif %}</a>
         </li>
         <li class="nav-item">
           <a class="nav-link {% if nav_context == 'Profile' %}active{% endif %}" href="/users/myprofile/">My Profile</a>
@@ -24,13 +18,16 @@
         </li>
       {% else %}
         <li class="nav-item">
-          <a class="nav-link {% if nav_context == 'Search' %}active{% endif %}" href="/search/">Search</a>
+          <a class="nav-link {% if nav_context == 'Search' %}active{% endif %}" href="/search/">Search</a>  
         </li>
         <li class="nav-item">
           <a class="nav-link {% if nav_context == 'Register' %}active{% endif %}" href="/users/register/">Sign Up</a>
         </li>
         <li class="nav-item">
           <a class="nav-link {% if nav_context == 'Login' %}active{% endif %}" href="/users/login/">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if nav_context == 'Cart' %}active{% endif %}" href="/cart/">Cart</a>
         </li>
       {% endif %}
     </ul>

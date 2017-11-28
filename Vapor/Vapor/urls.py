@@ -23,4 +23,6 @@ urlpatterns = [
 	url(r'^cart/', include('cart.urls', namespace="cart", app_name="cart")),
 	url(r'^$', RedirectView.as_view(url='home/')),
     url(r'^admin/', admin.site.urls),
+    url(r'^user/', include('user.urls', namespace="user", app_name= "user")),
 ]
+
