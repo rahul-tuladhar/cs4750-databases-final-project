@@ -93,7 +93,7 @@ class Developer(models.Model):
 
     def __str__(self):
         # Should probably have each object be able to return a string of itself
-        return self.merchant_name
+        return self.developer_name
 
     def get_absolute_url(self):
         """
