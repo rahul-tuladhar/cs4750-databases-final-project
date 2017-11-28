@@ -28,6 +28,8 @@ class Customer(models.Model):
     cc_number = models.CharField(max_length = 200)
     cc_exp_date = models.BooleanField(default = False)
     cc_security_code = models.CharField(max_length = 200)
+    activation_key = models.CharField(max_length=40, blank=True)
+    key_expires = models.DateTimeField(blank=True)
 
     def __str__(self):
         # Should probably have each object be able to return a string of itself

@@ -65,7 +65,7 @@ def register_user(request):
 
             customer_profile = Customer(id=customer.id, customer=customer, activation_key=activation_key,
                    key_expires=key_expires)
-            user_profile.save()
+            customer_profile.save()
 
             email_subject = 'Vapor Registration Confirmation'
 
@@ -74,8 +74,8 @@ def register_user(request):
 
             send_mail(email_subject, email_message, 'rt4hc@gmail.com', [email], fail_silently=False)
 
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
+            customer = authenticate(username=username, password=raw_password)
+            login(request, customer)
             return redirect('/newuserkeylanding/')
     else:
         form = RegistrationForm()
@@ -85,14 +85,14 @@ def register_confirm(request, activation_key):
     if request.user.is_authenticated():
         HttpResponseRedirect('http://127.0.0.1:8000/')
 
-    user_profile = get_object_or_404(UserProfile, activation_key=activation_key)
+    customer_profile = get_object_or_404(Customer, activation_key=activation_key)
 
-    if user_profile.key_expires < timezone.now():
+    if customer_profile.key_expires < timezone.now():
         return HttpResponse("Activation key not working! Please register a new account.")
 
-    user = user_profile.user
-    user.is_active = True
-    user.save()
+    customer = customer_profile.customer
+    customer.is_active = True
+    customer.save()
     return HttpResponse("Registration successful! Please go to the login page to log in to your account!")
 
 def user_logout(request):
