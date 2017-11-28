@@ -161,7 +161,7 @@ class ShoppingCart(models.Model):
 
 
 
-class Transactions(models.Model):
+class Transaction(models.Model):
     '''CREATE TABLE transactions (
 			transaction_id int AUTO_INCREMENT,
 			date_time datetime,
@@ -194,7 +194,7 @@ class Transactions(models.Model):
         """
         return ("transaction_id/"+id)
 
-class Reviews(models.Model):
+class Review(models.Model):
     '''CREATE TABLE reviews (
 			review_id int AUTO_INCREMENT,
 			review_content varchar(1000),
@@ -218,7 +218,7 @@ class Reviews(models.Model):
 
     def __str__(self):
         # Should probably have each object be able to return a string of itself
-        return self.id
+        return str(self.review_content)
 
     def get_absolute_url(self):
         """

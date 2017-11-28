@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from data.models import Product, Merchant, Developer, Customer, ShoppingCart
+from data.models import Product, Merchant, Developer, Customer, ShoppingCart, Review
 from .forms import AddToCartForm
 
 # Create your views here.
@@ -9,7 +9,11 @@ def detail_view(request, product_id):
 	product = Product.objects.get(id=product_id)
 	context['product'] = product
 
+	reviews = Review.objects.filter(product_id=product_id)
+	context['reviews'] = reviews
+	print(reviews)
 
+	# for when user clicks 'add to cart'
 	if request.method == "POST":
 		form = AddToCartForm(request.POST)
 		if request.POST.get('add_cart'):

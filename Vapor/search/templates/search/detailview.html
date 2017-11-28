@@ -13,3 +13,13 @@
 
 	<input type="submit" name="add_cart" value="Add to Cart">
 </form>
+
+{% if reviews %}
+	<h2> reviews: </h2>
+	{% for review in reviews %}
+		{{review.review_content}}
+	{% endfor %}
+
+{% else %}
+<div> No reviews yet </div>
+{% endif %}
