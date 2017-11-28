@@ -1,9 +1,6 @@
 from django.db import models
 from django import forms
-from django.db.models.fields import uuid
 from django.contrib.auth.models import User, Group
-#from users.models import UserGroup
-
 
 class Customers(models.Model):
     # Attributes of the report model
@@ -251,7 +248,7 @@ class DevelopersProducesProducts(models.Model):
         """
         Returns the url to access a particular report instance.
         """
-        return ("dpp_id/"+id)
+        return ("dpp/"+id)
 
 class SupportTickets(models.Model):
     '''CREATE TABLE support_tickets (
@@ -276,4 +273,4 @@ class SupportTickets(models.Model):
         """
         Returns the url to access a particular report instance.
         """
-        return ("dpp_id/"+id)
+        return ("support_tickets/"+id)
