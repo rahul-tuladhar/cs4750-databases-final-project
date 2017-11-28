@@ -21,6 +21,7 @@ urlpatterns = [
 	url(r'^home/', include('home.urls', namespace="home", app_name="home")),
 	url(r'^search/', include('search.urls', namespace="search", app_name="search")),
 	url(r'^cart/', include('cart.urls', namespace="cart", app_name="cart")),
+	url(r'^create/', include('create.urls', namespace="create", app_name="create")),
 	url(r'^$', RedirectView.as_view(url='home/')),
     url(r'^admin/', admin.site.urls),
 ]
