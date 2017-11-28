@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'search.apps.SearchConfig',
     'data.apps.DataConfig',
     'create.apps.CreateConfig',
+    'user.apps.UserConfig',
 ]
 
 MIDDLEWARE = [

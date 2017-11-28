@@ -1,0 +1,40 @@
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<link rel="stylesheet" href="{% static "css/home/home.css" %}">
+{% include "home/navbar.html" %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 center-block" style="float: none">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1>Vapor Login</h1>
+                </div>
+                <div class="panel-body">
+                    <form id="login_form" method="post" action="{% url 'user:login' %}">
+                        {% csrf_token %}
+                        <div class="form-group input-group col-md-12">
+                            <span class="input-group-addon" id="basic-addon1">
+                                <span class="glyphicon glyphicon-user"></span>
+                            </span>
+                            <input class="form-control" type="text" name="username" value="" placeholder="Username" size="50" aria-describedby="basic-addon1"/><br />
+                        </div>
+                        <div class="form-group input-group col-md-12">
+                            <span class="input-group-addon" id="basic-addon2">
+                                <span class="glyphicon glyphicon-lock"></span>
+                            </span>
+                            <input class="form-control" type="password" name="password" value="" placeholder="Password" size="50" aria-describedby="basic-addon2"/><br />
+                        </div>
+                        <div class="form-group">
+                            <input class="btn btn-primary col-md-12" type="submit" value="Login" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </div><!-- END ROW -->
+    </div>
+
+{% endblock %}

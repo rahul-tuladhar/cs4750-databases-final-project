@@ -24,4 +24,6 @@ urlpatterns = [
 	url(r'^create/', include('create.urls', namespace="create", app_name="create")),
 	url(r'^$', RedirectView.as_view(url='home/')),
     url(r'^admin/', admin.site.urls),
+    url(r'^user/', include('user.urls', namespace="user", app_name= "user")),
 ]
+
