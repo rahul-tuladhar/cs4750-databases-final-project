@@ -39,9 +39,8 @@ def user_login(request):
     if request.method == 'POST':
         user = authenticate(username=request.POST.get('username'), password=request.POST.get('password'))
         if user is not None:
-            up = Customer.objects.get(id = user.id)
-        else:
-             return HttpResponse("Invalid login information. (If you believe you have entered the correct login information, contact the Site Manager.)")
+            login(request, user)
+            return HttpResponseRedirect('/')
     else:
         return render(request, 'user/login.html', {})
 
