@@ -6,14 +6,17 @@ from decimal import *
 
 # Create your views here.
 
-def cart_view(request, user_id):
+def cart_view(request):
+	user_id = request.user.id
 	context = {'name': '', 'items': []}
 
 	# Get the customer for this cart
 	try: 
-		customer = Customer.objects.get(id__exact=user_id)
+		customer = Customer.objects.get(id=1)
 	except:
 		customer = None
+
+	print(customer)
 
 	# If the customer is valid, add name to context['name'] and add items in his cart to context['items']
 	if customer:

@@ -52,6 +52,9 @@ def register_user(request):
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             email = form.cleaned_data['email']
+
+            temp_customer = Customer(customer_name=username)
+            temp_customer.save()
             # user_type = form.cleaned_data['user_type']
 
             # random_string = str(random.random()).encode('utf8')
