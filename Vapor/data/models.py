@@ -1,8 +1,7 @@
 from django.db import models
 from django import forms
-from django.db.models.fields import uuid
 from django.contrib.auth.models import User, Group
-from users.models import UserGroup
+
 
 
 class Customers(models.Model):
@@ -249,7 +248,7 @@ class DevelopersProducesProducts(models.Model):
         """
         Returns the url to access a particular report instance.
         """
-        return ("dpp_id/"+id)
+        return ("dpp/"+id)
 
 class SupportTickets(models.Model):
     '''CREATE TABLE support_tickets (
@@ -264,7 +263,8 @@ class SupportTickets(models.Model):
     id = models.BigIntegerField(primary_key=True)
     ticket_content = models.TextField(max_length = 500)
     ticket_date_time = models.DateTimeField(auto_now_add = True) # only one document can have document=true field
-   	customer_id = models.ForeignKey()
+   	customer_id = models.ForeignKey(Customers, on_delete = models.CASCADE)
+
 
     def __str__(self):
         # Should probably have each object be able to return a string of itself
@@ -274,4 +274,4 @@ class SupportTickets(models.Model):
         """
         Returns the url to access a particular report instance.
         """
-        return ("dpp_id/"+id)
+        return ("support_tickets/"+id)
