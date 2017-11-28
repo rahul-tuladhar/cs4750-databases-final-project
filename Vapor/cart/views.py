@@ -29,6 +29,7 @@ def cart_view(request, user_id):
 
 		context['items'] = list_items
 		context['transaction_total'] = Decimal(transaction_total).quantize(Decimal('.01'))
+		context['is_logged_in'] = True
 
 	if request.method == 'POST':
 		if request.POST.get('checkout'):

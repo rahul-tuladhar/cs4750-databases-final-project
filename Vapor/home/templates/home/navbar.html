@@ -8,13 +8,15 @@
     <ul class="navbar-nav">
       {% if is_logged_in %}
         <li class="nav-item">
-          <a class="nav-link {% if nav_context == 'Search' %}active{% endif %}" href="/search/">Search</a>
+          <a class="nav-link {% if nav_context == 'Search' %}active{% endif %}" href="/search/">Search</a>  
         </li>
         <li class="nav-item">
-          <a class="nav-link {% if nav_context == 'Profile' %}active{% endif %}" href="/users/myprofile/">My Profile</a>
+          <a class="nav-link {% if nav_context == 'Cart' %}active{% endif %}" href="/cart/">Cart</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/users/logout/">Logout</a>
+          <a class="nav-link {% if nav_context == 'Create' %}active{% endif %}" href="/create/product">Create Product</a>
+         <li class="nav-item">
+          <a class="nav-link {% if nav_context == 'Logout' %}active{% endif %}" href="/user/logout/">Logout</a>
         </li>
       {% else %}
         <li class="nav-item">
@@ -26,8 +28,7 @@
         <li class="nav-item">
           <a class="nav-link {% if nav_context == 'Login' %}active{% endif %}" href="/user/login/">Login</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link {% if nav_context == 'Cart' %}active{% endif %}" href="/cart/">Cart</a>
+       
         </li>
       {% endif %}
     </ul>

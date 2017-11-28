@@ -17,5 +17,5 @@ def product_view(request):
 			new_product.save()
 	else:
 		form = NewProductForm()
-	context = {'form': form}
+	context = {'form': form, 'is_logged_in': True}
 	return render(request, 'create/newProduct.html', context)

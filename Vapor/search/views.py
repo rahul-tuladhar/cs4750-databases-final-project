@@ -34,7 +34,7 @@ def detail_view(request, product_id):
 	return render(request, 'search/detailview.html', context)
 
 def search_view(request):
-	context = {}
+	context = {'is_logged_in':True}
 
 	if request.method == "POST":
 		if request.POST.get('search_button'):

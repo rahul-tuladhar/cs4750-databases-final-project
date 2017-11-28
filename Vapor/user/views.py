@@ -60,10 +60,10 @@ def register_user(request):
             # activation_key = hashlib.sha1(salted).hexdigest()
             # key_expires = timezone.now() + datetime.timedelta(2)
 
-            customer = User.objects.get(username=username)
+            # customer = User.objects.get(username=username)
 
-            customer_profile = Customer(id=customer.id, customer=customer)
-            customer_profile.save()
+            # customer_profile = Customer(id=customer.id, customer_name = username)
+            # customer_profile.save()
 
             # email_subject = 'Vapor Registration Confirmation'
 
