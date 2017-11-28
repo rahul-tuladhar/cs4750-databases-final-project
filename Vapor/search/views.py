@@ -1,7 +1,33 @@
 from django.shortcuts import render, redirect
-from data.models import Product, Merchant, Developer
+from data.models import Product, Merchant, Developer, Customer, ShoppingCart
+from .forms import AddToCartForm
 
 # Create your views here.
+
+def detail_view(request, product_id):
+	context = {}
+	product = Product.objects.get(id=product_id)
+	context['product'] = product
+
+
+	if request.method == "POST":
+		form = AddToCartForm(request.POST)
+		if request.POST.get('add_cart'):
+			if form.is_valid():
+				cform = form.cleaned_data
+				customer = cform['customer']
+
+				sc = ShoppingCart(product_id=product, customer_id=customer)
+				sc.save()
+				return redirect('/cart/'+str(customer.id))
+
+	else:
+		form = AddToCartForm()
+
+	context['form'] = form
+
+
+	return render(request, 'search/detailview.html', context)
 
 def search_view(request):
 	context = {}
@@ -51,8 +77,13 @@ def search_view(request):
 	return render(request, 'search/searchview.html', context)
 
 def results_view(request):
+	print("render results")
 	data = request.session['search_results']
 	context = {'results': data}
 
+	if request.method == "POST":
+		view_prod_id = request.POST.get('prod_id')
+
+		return redirect('/search/product/' + view_prod_id)
 
 	return render(request, 'search/resultsview.html', context)

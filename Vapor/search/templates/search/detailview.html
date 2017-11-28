@@ -1,0 +1,15 @@
+<h1> Detail View </h1>
+
+{{ product }}
+
+{{ product.product_description }}
+
+{{ product.price }}
+
+<form method="post">
+	{% csrf_token %}
+
+	{{ form.customer.label }} {{ form.customer }}
+
+	<input type="submit" name="add_cart" value="Add to Cart">
+</form>
