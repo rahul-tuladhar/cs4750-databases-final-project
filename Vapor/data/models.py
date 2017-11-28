@@ -18,8 +18,8 @@ class Customer(models.Model):
             PRIMARY KEY(customer_id)
             )'''
     
-    customer = models.OneToOneField(User)
-    activation_key = models.CharField(max_length = 200)
+    #customer = models.OneToOneField(User)
+    #activation_key = models.CharField(max_length = 200)
     customer_name = models.TextField(max_length = 400) # only one document can have document=true field
     street_address = models.DateTimeField(auto_now_add=True)
     city = models.CharField(max_length = 100, default="")

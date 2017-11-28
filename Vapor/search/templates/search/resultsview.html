@@ -12,7 +12,8 @@
 	{{ item.product_name }}
 	<form method='post'>
 		{% csrf_token %}
-		<input type="submit" value="Add to Cart" name="add_cart_{{ item.id }}" />
+		<input type="hidden" value={{item.id}} name="prod_id" />
+		<input type="submit" value="View Details" name="view_details" />
 	</form>
 {% endfor %}
 

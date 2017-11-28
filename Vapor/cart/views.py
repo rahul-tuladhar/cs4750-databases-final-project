@@ -9,7 +9,7 @@ def cart_view(request, user_id):
 
 	# Get the customer for this cart
 	try: 
-		customer = Customer.objects.get(id=user_id)
+		customer = Customer.objects.get(id__exact=user_id)
 	except:
 		customer = None
 

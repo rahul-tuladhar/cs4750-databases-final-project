@@ -7,6 +7,9 @@ from data.models import Product
 def product_view(request):
 	if request.method == 'POST':
 		form = NewProductForm(request.POST)
+		print("errors in create/views.py")
+		print(form.errors)
+		print(form.non_field_errors)
 		if form.is_valid():
 			cform = form.cleaned_data
 			print(cform)
