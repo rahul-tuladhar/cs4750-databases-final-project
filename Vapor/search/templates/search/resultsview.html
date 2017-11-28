@@ -3,20 +3,24 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<link rel="stylesheet" href="{% static "css/home/home.css" %}">
+<link rel="stylesheet" href="{% static 'css/home/home.css' %}">
+<link rel="stylesheet" type='text/css' href="{% static 'search/style.css' %}" />
+
 {% include "home/navbar.html" %}
 
-<h1> Search Results </h1>
+<div class='l-margin'>
+	<h1> Search Results </h1>
 
-{% for item in results %}
-	{{ item.product_name }}
-	<form method='post'>
-		{% csrf_token %}
-		<input type="hidden" value={{item.id}} name="prod_id" />
-		<input type="submit" value="View Details" name="view_details" />
-	</form>
-{% endfor %}
+	{% for item in results %}
+		{{ item.product_name }}
+		<form method='post'>
+			{% csrf_token %}
+			<input type="hidden" value={{item.id}} name="prod_id" />
+			<input type="submit" value="View Details" name="view_details" />
+		</form>
+	{% endfor %}
 
-<a href="{% url 'search:searchview' %}"> back </a>
+	<a href="{% url 'search:searchview' %}"> back </a>
+</div>
 
 {% endblock %}

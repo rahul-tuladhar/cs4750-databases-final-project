@@ -1,0 +1,30 @@
+.l-margin {
+	margin: 30px;
+}
+
+td {
+	padding-right: 20px;
+}
+
+.enshrinken {
+	width: 300px;
+}
+
+.search_title {
+	margin-bottom: 50px;
+}
+
+.custom_container {
+	position: relative; 
+	width: 370px; 
+	height: 50px; 
+}
+
+.r-align {
+	position: absolute;
+	right: 0px;
+}
+
+.price_comparision {
+	padding-top: 10px;
+}

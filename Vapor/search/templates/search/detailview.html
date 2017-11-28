@@ -3,34 +3,70 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<link rel="stylesheet" href="{% static "css/home/home.css" %}">
+<link rel="stylesheet" href="{% static 'css/home/home.css' %}">
+<link rel="stylesheet" type='text/css' href="{% static 'search/style.css' %}" />
+
 {% include "home/navbar.html" %}
 
 
-<h1> Detail View </h1>
+<div class='l-margin'>
+	<h1> Product Details </h1>
 
-{{ product }}
+	<table>
+		<tbody>
+			<tr>
+				<td> Product Name: </td>
+				<td> {{ product.product_name }} </td>
+			</tr>
+			<tr>
+				<td> Price: </td>
+				<td> $ {{ product.price }} </td>
+			</tr>
+			<tr>
+				<td> Amount in stock: </td>
+				<td> {{ product.stock }} </td>
+			</tr>
+			<tr>
+				<td> Genre: </td>
+				<td> {{ product.genre }} </td>
+			</tr>
+			<tr>
+				<td> Release Date: </td>
+				<td> {{ product.release_date }} </td>
+			</tr>
+			<tr>
+				<td> Description: </td>
+				<td> {{ product.product_description }} </td>
+			</tr>
+			<tr>
+				<td> Developer: </td>
+				<td> {{product.developer_id.developer_name }} </td>
+			</tr>
+			<tr>
+				<td> Sold by: </td>
+				<td> {{ product.merchant_id.merchant_name }} </td>
+			</tr>
+		</tbody>
+	</table>
 
-{{ product.product_description }}
+	<div style="border-bottom: 3px solid black; margin: 5px; width: 300px"> </div>
+	<form method="post">
+		{% csrf_token %}
 
-{{ product.price }}
+		{{ form.customer }}
 
-<form method="post">
-	{% csrf_token %}
+		<input type="submit" name="add_cart" value="Add to Cart">
+	</form>
 
-	{{ form.customer.label }} {{ form.customer }}
+	{% if reviews %}
+		<h2> reviews: </h2>
+		{% for review in reviews %}
+			{{review.review_content}}
+		{% endfor %}
 
-	<input type="submit" name="add_cart" value="Add to Cart">
-</form>
-
-{% if reviews %}
-	<h2> reviews: </h2>
-	{% for review in reviews %}
-		{{review.review_content}}
-	{% endfor %}
-
-{% else %}
-<div> No reviews yet </div>
-{% endif %}
+	{% else %}
+	<div> No reviews yet </div>
+	{% endif %}
+</div>
 
 {% endblock %}

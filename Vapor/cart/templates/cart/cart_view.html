@@ -4,9 +4,9 @@
 <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <link rel="stylesheet" href="{% static 'css/home/home.css' %}">
 
-{% include "home/navbar.html" %}
-{% load static %}
 <link rel="stylesheet" type='text/css' href="{% static 'cart/style.css' %}" />
+
+{% include "home/navbar.html" %}
 <div class="l-margin">
 	{% if name %}
 		<h1> Your Shopping Cart </h1>

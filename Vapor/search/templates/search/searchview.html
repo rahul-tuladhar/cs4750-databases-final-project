@@ -3,39 +3,72 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<link rel="stylesheet" href="{% static "css/home/home.css" %}">
+<link rel="stylesheet" href="{% static 'css/home/home.css' %}">
+<link rel="stylesheet" type='text/css' href="{% static 'search/style.css' %}" />
+
 {% include "home/navbar.html" %}
 
 
-<h1> default search page </h1>
+<div class='l-margin'>
+	<h1 class="search_title"> Search for Products </h1>
+	<form method="post">
+		{% csrf_token %}
 
-<form method="post">
-	{% csrf_token %}
-	<input 	type="text" placeholder="search by product name" name="name_search" size="50" />
-	<br />
-	<input type="text" placeholder="search by description" name="disc_search" size="50" />
-	<br />
-	<input type="radio" name="price_mod" value="less" /> Less than (<)
-	<br />
-	<input type="radio" name="price_mod" value="greater" /> Greater than (>)
-	<br ?>
-	<input type="radio" name="price_mod" value="equal" /> Equal to (=)
-	<br />
-	<input type="text" placeholder="search by price" name="price_search" size="50" />
-	<br />
-	<input type="radio" name="genre_search" value="Genre1" /> Genre 1
-	<br />
-	<input type="radio" name="genre_search" value="Genre2" /> Genre 2
-	<br />
-	<input type="radio" name="genre_search" value="Genre3" /> Genre 3
-	<br />
-	<input type="text" placeholder="search by merchant" name="merch_search" size="50" />
-	<br />
-	<input type="text" placeholder="search by developer" name="dev_search" size="50" />
-	<br />
-	<input type="submit" value="search" name="search_button" />
-</form>
+		<table>
+			<tbody>
+				<tr>
+					<td>
+						<div class='custom_container'>
+							Product Name:
+							<input class="r-align" type="text" placeholder="search by product name" name="name_search" size="30" />
+						</div>
+					</td>
+					<td>
+						<div class='custom_container'>
+							Merchant: 
+							<input class='r-align' type="text" placeholder="search by merchant" name="merch_search" size="30" />
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class='custom_container'>
+							Price: 
+							<input class='r-align' type="text" placeholder="search by price" name="price_search" size="30" />
+							<div class='price_comparision'>
+								<input type="radio" name="price_mod" value="less" /> Less than (<)
+								&nbsp; 
+								<input type="radio" name="price_mod" value="greater" /> Greater than (>)
+								&nbsp; 
+								<input type="radio" name="price_mod" value="equal" /> Equal to (=)
+							</div>
+						</div>
+					</td>
+					<td>
+						<div class='custom_container'>
+							Developer:
+							<input class='r-align' type="text" placeholder="search by developer" name="dev_search" size="30" />
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td> </td>
+					<td>
+						<div class='custom_container'>
+							Genre:
+							<div class='price_comparison'>
+								<input type="radio" name="genre_search" value="Genre1" /> Genre 1
+								<input type="radio" name="genre_search" value="Genre2" /> Genre 2
+								<input type="radio" name="genre_search" value="Genre3" /> Genre 3
+							</div>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<input type="submit" value="search" name="search_button" />
+	</form>
+</div>
 
-<p> {{ search_terms }} </p>
 
 {% endblock %}
