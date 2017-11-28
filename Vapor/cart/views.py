@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from data.models import Customer, ShoppingCart, Product, Transaction
 import datetime
+from decimal import *
 
 
 # Create your views here.
@@ -27,6 +28,7 @@ def cart_view(request, user_id):
 			transaction_total += float(product.price)
 
 		context['items'] = list_items
+		context['transaction_total'] = Decimal(transaction_total).quantize(Decimal('.01'))
 
 	if request.method == 'POST':
 		if request.POST.get('checkout'):

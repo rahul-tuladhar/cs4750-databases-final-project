@@ -1,0 +1,23 @@
+th, td {
+	padding: 10px;
+	padding-left: 25px;
+	padding-right: 25px;
+}
+
+th {
+	font-size: 20px;
+	border-bottom: 3px solid black;
+}
+
+.l-margin {
+	margin: 30px;
+}
+
+.totalrow {
+	font-weight: bold;
+	border-top: 2px solid black;
+}
+
+.testclass {
+	background-color: red;
+}

@@ -120,7 +120,7 @@ class Product(models.Model):
     
     product_name = models.CharField(max_length = 400) # only one document can have document=true field
     product_description = models.CharField(max_length=200)
-    price = models.CharField(max_length = 100, default="")
+    price = models.DecimalField(max_digits=100, decimal_places=2)
     genre = models.CharField(max_length = 100, null = True)
     release_date = models.DateTimeField(max_length = 200)
     stock = models.BigIntegerField()
