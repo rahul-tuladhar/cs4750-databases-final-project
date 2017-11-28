@@ -1,0 +1,30 @@
+<h1> default search page </h1>
+
+<form method="post">
+	{% csrf_token %}
+	<input 	type="text" placeholder="search by product name" name="name_search" size="50" />
+	<br />
+	<input type="text" placeholder="search by description" name="disc_search" size="50" />
+	<br />
+	<input type="radio" name="price_mod" value="less" /> Less than (<)
+	<br />
+	<input type="radio" name="price_mod" value="greater" /> Greater than (>)
+	<br ?>
+	<input type="radio" name="price_mod" value="equal" /> Equal to (=)
+	<br />
+	<input type="text" placeholder="search by price" name="price_search" size="50" />
+	<br />
+	<input type="radio" name="genre_search" value="Genre1" /> Genre 1
+	<br />
+	<input type="radio" name="genre_search" value="Genre2" /> Genre 2
+	<br />
+	<input type="radio" name="genre_search" value="Genre3" /> Genre 3
+	<br />
+	<input type="text" placeholder="search by merchant" name="merch_search" size="50" />
+	<br />
+	<input type="text" placeholder="search by developer" name="dev_search" size="50" />
+	<br />
+	<input type="submit" value="search" name="search_button" />
+</form>
+
+<p> {{ search_terms }} </p>

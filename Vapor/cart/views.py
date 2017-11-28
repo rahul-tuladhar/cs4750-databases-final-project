@@ -5,10 +5,13 @@ from data.models import Customers, ShoppingCart, Products
 # Create your views here.
 
 def cart_view(request, user_id):
-	context = {'name': "Null", 'items': []}
+	context = {'name': '', 'items': []}
 
 	# Get the customer for this cart
-	customer = Customers.objects.get(id=user_id)
+	try: 
+		customer = Customers.objects.get(id=user_id)
+	except:
+		customer = None
 
 	# If the customer is valid, add name to context['name'] and add items in his cart to context['items']
 	if customer:
