@@ -62,7 +62,7 @@ def register_user(request):
 
             customer = User.objects.get(username=username)
 
-            customer_profile = Customer(id=customer.id, customer=customer)
+            customer_profile = Customer(id=customer.id, customer_name = username)
             customer_profile.save()
 
             # email_subject = 'Vapor Registration Confirmation'
