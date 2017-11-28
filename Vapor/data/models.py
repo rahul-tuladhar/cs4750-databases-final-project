@@ -2,8 +2,6 @@ from django.db import models
 from django import forms
 from django.contrib.auth.models import User, Group
 
-
-
 class Customers(models.Model):
     # Attributes of the report model
     '''CREATE TABLE customers (
@@ -31,7 +29,7 @@ class Customers(models.Model):
 
     def __str__(self):
         # Should probably have each object be able to return a string of itself
-        return self.title
+        return self.customer_name
 
     def get_absolute_url(self):
         """
@@ -54,11 +52,11 @@ class Merchants(models.Model):
             )'''
     id = models.BigIntegerField(primary_key=True)
     merchant_name = models.CharField(max_length = 400) # only one document can have document=true field
-    street_address = models.CharField(auto_now_add=True)
+    street_address = models.CharField(max_length=200)
     city = models.CharField(max_length = 100, default="")
     state = models.CharField(max_length = 100, null = True)
     zip = models.CharField(max_length = 200)
-    phone_number = models.CharField(default = False)
+    phone_number = models.CharField(max_length=20, default = False)
 
     def __str__(self):
         # Should probably have each object be able to return a string of itself
@@ -85,11 +83,11 @@ class Developers(models.Model):
 
     id = models.BigIntegerField(primary_key=True)
     developer_name = models.CharField(max_length = 400) # only one document can have document=true field
-    street_address = models.CharField(auto_now_add=True)
+    street_address = models.CharField(max_length=200)
     city = models.CharField(max_length = 100, default="")
     state = models.CharField(max_length = 100, null = True)
     zip = models.CharField(max_length = 200)
-    phone_number = models.CharFieldC(default = False)
+    phone_number = models.CharField(max_length=20, default = False)
 
     def __str__(self):
         # Should probably have each object be able to return a string of itself
@@ -101,7 +99,7 @@ class Developers(models.Model):
         """
         return (id)
 
-class Developers(models.Model):
+class Products(models.Model):
     '''CREATE TABLE products (
 			product_id int AUTO_INCREMENT,
 			product_name varchar(100),
@@ -119,13 +117,13 @@ class Developers(models.Model):
 
     id = models.BigIntegerField(primary_key=True)
     product_name = models.CharField(max_length = 400) # only one document can have document=true field
-    product_description = models.CharField(auto_now_add=True)
+    product_description = models.CharField(max_length=200)
     price = models.CharField(max_length = 100, default="")
     genre = models.CharField(max_length = 100, null = True)
     release_date = models.DateTimeField(max_length = 200)
-    stock = models.BigIntegerField(max_length = 200)
+    stock = models.BigIntegerField()
     merchant_id = models.ForeignKey(Merchants, on_delete = models.CASCADE)
-    developer_id = models.ForignKey(Developers, on_delete = models.CASCADE)
+    developer_id = models.ForeignKey(Developers, on_delete = models.CASCADE)
 
     def __str__(self):
         # Should probably have each object be able to return a string of itself
@@ -152,13 +150,15 @@ class ShoppingCart(models.Model):
 
     def __str__(self):
         # Should probably have each object be able to return a string of itself
-        return self.id
+        return "customer {} wants item {}".format(self.customer_id, self.product_id)
 
     def get_absolute_url(self):
         """
         Returns the url to access a particular report instance.
         """
         return ("shopping_cart/"+id)
+
+
 
 class Transactions(models.Model):
     '''CREATE TABLE transactions (
@@ -177,7 +177,7 @@ class Transactions(models.Model):
 
     id = models.BigIntegerField(primary_key=True)
     date_time = models.DateTimeField(auto_now_add = True)
-    amount_paid = models.DecimalField(decimal_places = 2)
+    amount_paid = models.DecimalField(decimal_places = 2, max_digits=50)
     payment_method = models.CharField(max_length = 40)
     customer_id = models.ForeignKey(Customers, on_delete = models.CASCADE)
     merchant_id = models.ForeignKey(Merchants, on_delete = models.CASCADE)
@@ -210,7 +210,7 @@ class Reviews(models.Model):
     id = models.BigIntegerField(primary_key=True)
     review_content = models.TextField(max_length = 500)
     review_date_time = models.DateTimeField(auto_now_add = True)
-    reivew_rating = models.DecimalField(max_length = 40)
+    reivew_rating = models.DecimalField(decimal_places=1, max_digits=3, max_length = 40)
     customer_id = models.ForeignKey(Customers, on_delete = models.CASCADE)
     merchant_id = models.ForeignKey(Merchants, on_delete = models.CASCADE)
     product_id = models.ForeignKey(Products, on_delete = models.CASCADE) # only one document can have document=true field
@@ -263,8 +263,7 @@ class SupportTickets(models.Model):
     id = models.BigIntegerField(primary_key=True)
     ticket_content = models.TextField(max_length = 500)
     ticket_date_time = models.DateTimeField(auto_now_add = True) # only one document can have document=true field
-   	customer_id = models.ForeignKey(Customers, on_delete = models.CASCADE)
-
+    customer_id = models.ForeignKey(Customers, on_delete=models.CASCADE)
 
     def __str__(self):
         # Should probably have each object be able to return a string of itself

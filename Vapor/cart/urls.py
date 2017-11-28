@@ -4,5 +4,5 @@ from . import views
 app_name = "reports"
 
 urlpatterns = [
-	url(r'', views.defaultCart, name="defaultCart"),
+	url(r'^(?P<user_id>[0-9]+)', views.cart_view, name="cart_view"),
 ]
